@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import {
   View,
   StyleSheet,
@@ -12,29 +12,19 @@ import {
 import {ToDoCard} from './components';
 
 const App = () => {
-  const [counter, setCounter] = useState(0);
   const [todo, setTodo] = useState('');
   const [todoList, setTodoList] = useState([]);
   const [todoId, setId] = useState(0);
 
-  // const checkDuplicate = () => {
-  //   todoList.forEach((item) => {
-  //     if (item.text == todo) {
-  //       return alert('abc');
-  //     }
-  //   });
-  //   addTodo();
-  // };
-
   const addTodo = () => {
+    for (let item of todoList) {
+      if (item.text == todo) {
+        return alert("You've already had this ToDo!");
+      }
+    }
     setTodoList([{text: todo, id: todoId}, ...todoList]);
   };
-  const increaseCounter = () => {
-    setCounter(counter + 1);
-  };
-  const decreaseCounter = () => {
-    setCounter(counter - 1);
-  };
+
   const getInput = (text) => {
     setTodo(text);
   };
@@ -46,7 +36,7 @@ const App = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.heading}>TODO</Text>
-        <Text style={styles.counter}>{counter}</Text>
+        <Text style={styles.counter}>{todoList.length}</Text>
       </View>
 
       <View style={styles.main}>
@@ -54,11 +44,7 @@ const App = () => {
           keyExtractor={(item) => item.id.toString()}
           data={todoList}
           renderItem={({item}) => (
-            <ToDoCard
-              content={item}
-              deleteTodo={deleteTodo}
-              decreaseCounter={decreaseCounter}
-            />
+            <ToDoCard content={item} deleteTodo={deleteTodo} />
           )}
         />
       </View>
@@ -70,7 +56,6 @@ const App = () => {
           onChangeText={getInput}
           onSubmitEditing={(event) => {
             setTodo(event.nativeEvent.text);
-            increaseCounter();
             addTodo();
             setId(todoId + 1);
             setTodo('');
@@ -81,7 +66,6 @@ const App = () => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            increaseCounter();
             addTodo();
             setId(todoId + 1);
             setTodo('');

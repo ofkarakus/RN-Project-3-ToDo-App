@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 
-const ToDoCard = ({content, deleteTodo, decreaseCounter}) => {
+const ToDoCard = ({content, deleteTodo}) => {
   const [time, setTime] = useState(Date().split(' ').slice(0, 5).join(' - '));
 
   return (
@@ -20,7 +20,6 @@ const ToDoCard = ({content, deleteTodo, decreaseCounter}) => {
         style={styles.deleteBtn}
         onPress={() => {
           deleteTodo(content.id);
-          decreaseCounter();
         }}>
         <Text style={styles.delBtnText}>X</Text>
       </TouchableWithoutFeedback>
