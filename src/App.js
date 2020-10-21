@@ -9,6 +9,8 @@ import {
 
 import {ToDoCard, InputPanel} from './components';
 
+import {main} from './styles'
+
 const App = () => {
   const [todo, setTodo] = useState('');
   const [todoList, setTodoList] = useState([]);
@@ -34,13 +36,13 @@ const App = () => {
     setTodoList(todoList.filter((x) => x.id !== currentTodosId));
 
   return (
-    <KeyboardAvoidingView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.heading}>TODO</Text>
-        <Text style={styles.counter}>{todoList.length}</Text>
+    <KeyboardAvoidingView style={main.container}>
+      <View style={main.header}>
+        <Text style={main.heading}>TODO</Text>
+        <Text style={main.counter}>{todoList.length}</Text>
       </View>
 
-      <View style={styles.main}>
+      <View style={main.main}>
         <FlatList
           keyExtractor={(item) => item.id.toString()}
           data={todoList}
@@ -51,7 +53,7 @@ const App = () => {
               doneTodo = {doneTodo}
             />
           )}
-          ListEmptyComponent={()=> <Text style={styles.empty}>There is no ToDo in your list.</Text>}
+          ListEmptyComponent={()=> <Text style={main.empty}>There is no ToDo in your list.</Text>}
         />
       </View>
       
@@ -65,39 +67,5 @@ const App = () => {
     </KeyboardAvoidingView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#37474F',
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginHorizontal: 15,
-    marginVertical: 10,
-  },
-  heading: {
-    color: '#FBA730',
-    fontWeight: 'bold',
-    fontSize: 35,
-  },
-  counter: {
-    color: '#FBA730',
-    fontSize: 30,
-  },
-
-  main: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  empty: {
-    color: 'white',
-    fontWeight: 'bold',
-    marginTop: 10,
-    fontSize: 16
-  }
-});
 
 export default App;

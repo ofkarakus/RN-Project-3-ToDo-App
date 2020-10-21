@@ -1,5 +1,7 @@
 import React from 'react';
-import {View, TextInput, TouchableOpacity, Text, StyleSheet, Dimensions} from 'react-native';
+import {View, TextInput, TouchableOpacity, Text} from 'react-native';
+
+import {inputPanel} from '../styles'
 
 const InputPanel = ({setTodo, addTodo, setId, todo, todoId}) => {
   
@@ -8,9 +10,9 @@ const InputPanel = ({setTodo, addTodo, setId, todo, todoId}) => {
   };
 
   return (
-    <View style={styles.footer}>
+    <View style={inputPanel.footer}>
       <TextInput
-        style={styles.input}
+        style={inputPanel.input}
         placeholder="Type here to add your ToDo!"
         onChangeText={getInput}
         onSubmitEditing={(event) => {
@@ -23,48 +25,16 @@ const InputPanel = ({setTodo, addTodo, setId, todo, todoId}) => {
         value={todo}
       />
       <TouchableOpacity
-        style={styles.button}
+        style={inputPanel.button}
         onPress={() => {
           addTodo();
           setId(todoId + 1);
           setTodo('');
         }}>
-        <Text style={styles.btnText}>ADD TODO</Text>
+        <Text style={inputPanel.btnText}>ADD TODO</Text>
       </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  footer: {
-    backgroundColor: '#B0BEC5',
-    marginHorizontal: 10,
-    borderRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: Dimensions.get('window').height / 5,
-    marginBottom: 25,
-  },
-  input: {
-    backgroundColor: '#FFFFFF',
-    width: '85%',
-    height: '32%',
-    borderRadius: 10,
-    marginVertical: 10,
-  },
-  button: {
-    backgroundColor: '#37474F',
-    width: '50%',
-    height: '30%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  btnText: {
-    color: '#FFFFFF',
-    fontWeight: 'bold',
-  },
-});
 
 export {InputPanel};
