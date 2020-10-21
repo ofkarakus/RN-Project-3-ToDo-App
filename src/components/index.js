@@ -1,1 +1,2 @@
-export {ToDoCard} from './ToDoCard';
+export * from './ToDoCard';
+export * from './InputPanel';

@@ -1,15 +1,13 @@
-import React, {useState, useEffect, useReducer} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
   Text,
-  TextInput,
-  TouchableOpacity,
-  Dimensions,
   FlatList,
+  KeyboardAvoidingView
 } from 'react-native';
 
-import {ToDoCard} from './components';
+import {ToDoCard, InputPanel} from './components';
 
 const App = () => {
   const [todo, setTodo] = useState('');
@@ -22,18 +20,21 @@ const App = () => {
         return alert("You've already had this ToDo!");
       }
     }
-    setTodoList([{text: todo, id: todoId}, ...todoList]);
+    setTodoList([{text: todo, id: todoId, isDone: false}, ...todoList]);
   };
 
-  const getInput = (text) => {
-    setTodo(text);
-  };
+  const doneTodo = (currentTodosId) => {
+    let currentTodosIndex = todoList.findIndex(x => x.id == currentTodosId)
+    let newArr = [...todoList]
+    newArr[currentTodosIndex].isDone = !newArr[currentTodosIndex].isDone
+    setTodoList(newArr)
+  }
 
   const deleteTodo = (currentTodosId) =>
-    setTodoList(todoList.filter((todo) => todo.id !== currentTodosId));
+    setTodoList(todoList.filter((x) => x.id !== currentTodosId));
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.heading}>TODO</Text>
         <Text style={styles.counter}>{todoList.length}</Text>
@@ -44,36 +45,24 @@ const App = () => {
           keyExtractor={(item) => item.id.toString()}
           data={todoList}
           renderItem={({item}) => (
-            <ToDoCard content={item} deleteTodo={deleteTodo} />
+            <ToDoCard 
+              content = {item} 
+              deleteTodo = {deleteTodo}
+              doneTodo = {doneTodo}
+            />
           )}
+          ListEmptyComponent={()=> <Text style={styles.empty}>There is no ToDo in your list.</Text>}
         />
       </View>
-
-      <View style={styles.footer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Type here to add your ToDo!"
-          onChangeText={getInput}
-          onSubmitEditing={(event) => {
-            setTodo(event.nativeEvent.text);
-            addTodo();
-            setId(todoId + 1);
-            setTodo('');
-          }}
-          autoFocus={true}
-          value={todo}
-        />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            addTodo();
-            setId(todoId + 1);
-            setTodo('');
-          }}>
-          <Text style={styles.btnText}>ADD TODO</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+      
+      <InputPanel
+        setTodo = {setTodo}
+        addTodo = {addTodo}
+        setId = {setId}
+        todo = {todo}
+        todoId = {todoId}
+      />
+    </KeyboardAvoidingView>
   );
 };
 
@@ -103,36 +92,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-
-  footer: {
-    backgroundColor: '#B0BEC5',
-    marginHorizontal: 10,
-    borderRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: Dimensions.get('window').height / 5,
-    marginBottom: 25,
-  },
-  input: {
-    backgroundColor: '#FFFFFF',
-    width: '85%',
-    height: '32%',
-    borderRadius: 10,
-    marginVertical: 10,
-  },
-  button: {
-    backgroundColor: '#37474F',
-    width: '50%',
-    height: '30%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  btnText: {
-    color: '#FFFFFF',
+  empty: {
+    color: 'white',
     fontWeight: 'bold',
-  },
+    marginTop: 10,
+    fontSize: 16
+  }
 });
 
 export default App;

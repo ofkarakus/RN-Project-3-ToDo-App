@@ -5,15 +5,22 @@ import {
   StyleSheet,
   Dimensions,
   TouchableWithoutFeedback,
+  TouchableOpacity,
+  Image
 } from 'react-native';
 
-const ToDoCard = ({content, deleteTodo}) => {
+const ToDoCard = ({content, deleteTodo, doneTodo}) => {
   const [time, setTime] = useState(Date().split(' ').slice(0, 5).join(' - '));
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity 
+      style={styles.container}
+      onPress={() => {
+        doneTodo(content.id)
+      }}
+    >
       <View style={styles.info}>
-        <Text style={styles.todo}>{content.text}</Text>
+        <Text style={[styles.todo, content.isDone ? {textDecorationLine: 'line-through'} : null]}>{content.text}</Text>
         <Text style={styles.time}>{time}</Text>
       </View>
       <TouchableWithoutFeedback
@@ -21,9 +28,11 @@ const ToDoCard = ({content, deleteTodo}) => {
         onPress={() => {
           deleteTodo(content.id);
         }}>
-        <Text style={styles.delBtnText}>X</Text>
+        <Image style={styles.delIcon} 
+          source={require('../icons/delete.png')}
+        />
       </TouchableWithoutFeedback>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -55,6 +64,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingHorizontal: 10,
     fontSize: 17,
+  },
+  delIcon: {
+    width: 20,
+    height: 20,
+    marginHorizontal: 5
   },
 });
 
