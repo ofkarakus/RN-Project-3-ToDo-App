@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native'
+import {StyleSheet, Dimensions} from 'react-native';
 
 const inputPanel = StyleSheet.create({
   footer: {
@@ -16,6 +16,7 @@ const inputPanel = StyleSheet.create({
     height: '32%',
     borderRadius: 10,
     marginVertical: 10,
+    paddingLeft: 15,
   },
   button: {
     backgroundColor: '#37474F',
@@ -29,7 +30,7 @@ const inputPanel = StyleSheet.create({
   btnText: {
     color: '#FFFFFF',
     fontWeight: 'bold',
-  }
-})
+  },
+});
 
-export {inputPanel}
+export {inputPanel};

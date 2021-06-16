@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native'
+import {StyleSheet} from 'react-native';
 
 const main = StyleSheet.create({
   container: {
@@ -30,9 +30,11 @@ const main = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     marginTop: 10,
-    fontSize: 16
-  }
-})
-
+    fontSize: 16,
+  },
+  keyboardAvoid: {
+    flex: 1,
+  },
+});
 
 export {main};

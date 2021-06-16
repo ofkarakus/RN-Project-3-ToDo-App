@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native'
+import {StyleSheet, Dimensions} from 'react-native';
 
 const todoCard = StyleSheet.create({
   container: {
@@ -32,9 +32,8 @@ const todoCard = StyleSheet.create({
   delIcon: {
     width: 20,
     height: 20,
-    marginHorizontal: 5
-  }
-})
-
+    marginHorizontal: 5,
+  },
+});
 
 export {todoCard};

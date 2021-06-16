@@ -1,3 +1,3 @@
-export * from './main'
-export * from './inputPanel'
-export * from './todoCard'
+export * from './main';
+export * from './inputPanel';
+export * from './todoCard';

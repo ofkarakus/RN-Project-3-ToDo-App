@@ -1,11 +1,10 @@
 import React from 'react';
 import {View, TextInput, TouchableOpacity, Text} from 'react-native';
 
-import {inputPanel} from '../styles'
+import {inputPanel} from '../styles';
 
 const InputPanel = ({setTodo, addTodo, setId, todo, todoId}) => {
-  
-  const getInput = (text) => {
+  const getInput = text => {
     setTodo(text);
   };
 
@@ -15,7 +14,7 @@ const InputPanel = ({setTodo, addTodo, setId, todo, todoId}) => {
         style={inputPanel.input}
         placeholder="Type here to add your ToDo!"
         onChangeText={getInput}
-        onSubmitEditing={(event) => {
+        onSubmitEditing={event => {
           setTodo(event.nativeEvent.text);
           addTodo();
           setId(todoId + 1);
